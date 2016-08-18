@@ -1,14 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
 <head>
     <title>QUIZ QUESTION</title>
 </head>
-<body>
-<h1>QUIZ QUESTION</h1>
 
+<body bgcolor="#5DADE2"></body>
+<h1>QUIZ QUESTION</h1>
 QUESTION: <c:out value="${quizQuestion.question}" />
+
 <br><br><br>
+
+<form bgcolor="#D35400"></form>
+
 <form name="questionForm" method="POST" action="/quiz/questionAnswer">
 <c:if test="${quizQuestion.questionType == 'MULTIPLE_CHOICE'}">
     <input type="radio" name="multiAnswer" value="yes"> :<c:out value="${quizQuestion.correctMultipleChoiceAnswer}" /><br>
@@ -21,7 +26,9 @@ QUESTION: <c:out value="${quizQuestion.question}" />
     False: <input type="radio" name="trueFalseAnswer" value="false">
 </c:if>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-<br><br><input type="submit" name="Show Me">
+<br><br><input type="submit" style="background-color:orange" name="Show Me">
+
 </form>
+
 </body>
 </html>

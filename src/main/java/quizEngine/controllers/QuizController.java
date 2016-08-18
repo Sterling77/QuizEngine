@@ -1,5 +1,6 @@
 package quizEngine.controllers;
 
+import com.sun.demo.jvmti.hprof.Tracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -7,6 +8,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
+import quizEngine.entities.Quiz;
+import quizEngine.entities.QuizDAO;
 import quizEngine.entities.QuizQuestion;
 import quizEngine.entities.QuizQuestionDAO;
 
@@ -21,11 +24,15 @@ import java.util.Random;
 public class QuizController {
 
     private final QuizQuestionDAO quizQuestionDAO;
+    private final QuizDAO quizDAO;
 
     @Autowired
-    public QuizController(QuizQuestionDAO quizQuestionDAO) {
+    public QuizController(QuizQuestionDAO quizQuestionDAO, QuizDAO quizDAO) {
         Assert.notNull(quizQuestionDAO, "QuizQuestionDAO must not be null!");
+        Assert.notNull(quizDAO, "QuizDAO must not be null!");
+
         this.quizQuestionDAO = quizQuestionDAO;
+        this.quizDAO = quizDAO;
     }
 
     @RequestMapping(value="/")
@@ -45,6 +52,10 @@ public class QuizController {
         request.getSession().setAttribute("quizType",quizType);
         request.getSession().setAttribute("questionType",questionType);
         request.getSession().setAttribute("difficulty",difficulty);
+        Quiz quiz = new Quiz();
+        quiz.setName(name);
+        quiz.setEmail(email);
+
 
         Iterable<QuizQuestion> quizQuestions = null;
         int numberOfQuestions = 0;
@@ -91,6 +102,9 @@ public class QuizController {
             quizQuestionsHashMap.put(i,quizQuestion);
             i++;
         }
+        quizDAO.save(quiz);
+        quiz.setTotalQuestions(countIterable(quizQuestions));
+        request.getSession().setAttribute("totalquizresults", quiz);
         request.getSession().setAttribute("quizQuestionsHashMap",quizQuestionsHashMap);
         ArrayList<Integer> usedQuestions = new ArrayList<>();
         request.getSession().setAttribute("usedQuestions",usedQuestions);
@@ -100,6 +114,8 @@ public class QuizController {
 
     @RequestMapping(value="nextQuestion")
     public String nextQuestion(ModelMap model, HttpServletRequest request) {
+
+
         ArrayList<Integer> usedQuestions = (ArrayList<Integer>)request.getSession().getAttribute("usedQuestions");
         HashMap<Integer,QuizQuestion> quizQuestionsHashMap = (HashMap<Integer,QuizQuestion>)request.getSession().getAttribute("quizQuestionsHashMap");
         int numberOfQuestions = quizQuestionsHashMap.size();
@@ -124,23 +140,33 @@ public class QuizController {
 
     @RequestMapping(value="questionAnswer")
     public String questionAnswer(String multiAnswer, String trueFalseAnswer, ModelMap model, HttpServletRequest request) {
-        HashMap<Integer,QuizQuestion> quizQuestionsHashMap = (HashMap<Integer,QuizQuestion>)request.getSession().getAttribute("quizQuestionsHashMap");
+        Quiz quiz = (Quiz) request.getSession().getAttribute("totalquizresults");
+        HashMap<Integer, QuizQuestion> quizQuestionsHashMap = (HashMap<Integer, QuizQuestion>) request.getSession().getAttribute("quizQuestionsHashMap");
         int questionNumber = (Integer) request.getSession().getAttribute("questionNumber");
         QuizQuestion quizQuestion = quizQuestionsHashMap.get(questionNumber);
-        model.addAttribute("quizQuestion",quizQuestion);
+        model.addAttribute("quizQuestion", quizQuestion);
         model.remove("correct");
         model.remove("incorrect");
-        if(quizQuestion.getQuestionType().equals(QuizQuestion.QuestionType.MULTIPLE_CHOICE)) {
+
+        if (quizQuestion.getQuestionType().equals(QuizQuestion.QuestionType.MULTIPLE_CHOICE)) {
             if (multiAnswer != null && multiAnswer.equalsIgnoreCase("yes")) {
-                model.addAttribute("correct","GREAT JOB!");
+                model.addAttribute("correct", "GREAT JOB!");
+                int c = quiz.getCorrect();
+                quiz.setCorrect(c++);
             } else {
-                model.addAttribute("incorrect","SORRY Wrong Answer");
+                model.addAttribute("incorrect", "SORRY Wrong Answer");
+                int w = quiz.getIncorrect();
+                quiz.setIncorrect(w++);
             }
         } else if (quizQuestion.getQuestionType().equals(QuizQuestion.QuestionType.TRUE_FALSE)) {
-            if(trueFalseAnswer != null && quizQuestion.isTrueOrFalse() == Boolean.valueOf(trueFalseAnswer)) {
-                model.addAttribute("correct","GREAT JOB!");
+            if (trueFalseAnswer != null && quizQuestion.isTrueOrFalse() == Boolean.valueOf(trueFalseAnswer)) {
+                model.addAttribute("correct", "GREAT JOB!");
+                int c = quiz.getCorrect();
+                quiz.setCorrect(c++);
             } else {
-                model.addAttribute("incorrect","SORRY Wrong Answer");
+                model.addAttribute("incorrect", "SORRY Wrong Answer");
+                int w = quiz.getIncorrect();
+                quiz.setIncorrect(w++);
             }
         }
         return "quiz/answer";

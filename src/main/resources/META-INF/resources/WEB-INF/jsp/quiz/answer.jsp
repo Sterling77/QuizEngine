@@ -10,17 +10,20 @@
         <script>hljs.initHighlightingOnLoad();</script>
     </c:if>
 </head>
+<body bgcolor="#F4D03F"></body>
 <body>
 <h1>QUIZ ANSWER</h1>
 
 <c:if test="${not empty correct}">
     <div style="color:green;font-weight: bold;">
         <c:out value="${correct}" />
+        <img src="http://www.princetontutoring.com/blog/wp-content/uploads/2014/05/right.jpg"/>
     </div>
 </c:if>
 <c:if test="${not empty incorrect}">
     <div style="color:red;font-weight: bold;">
         <c:out value="${incorrect}" />
+        <img src="http://ed101.bu.edu/StudentDoc/Archives/ED101sp07/jabird/wronganswerman.jpg"/>
     </div>
 </c:if>
 <br><br>
@@ -59,7 +62,7 @@ ANSWER:
 <br><br>
 <form action="/quiz/nextQuestion" method="POST">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <input type="submit" value="Next Question" />
+    <input type="submit" style="background-color:orange" value="Next Question" />
 </form>
 </body>
 </html>
