@@ -6,49 +6,53 @@
     <title>QUIZ RESULTS</title>
 </head>
 
+<%--<body--%>
+       <%----%>
+<%--</body>--%>
+
+
 <body
-        bgcolor="#00FFFF">
-</body>
+bgcolor="#00FFFF">
 
-
-<body>
-<table>
 <h1>QUIZ RESULTS</h1>
+<table>
 
-<c:if test="${not empty totalquizresults.correct}">
-    <div style="color:green;font-weight: bold;">
+<c:if test="${not empty totalquizresults.correct}">Correct Quiz Results:
+    <div style="color:darkorange;font-weight: bold;">
         <c:out value="${totalquizresults.correct}" />
     </div>
  </c:if>
 
-<c:if test="${not empty totalquizresults.incorrect}">
-    <div style="color:green;font-weight: bold;">
+<c:if test="${not empty totalquizresults.incorrect}">Incorrect Quiz Results:
+    <div style="color:darkorange;font-weight: bold;">
         <c:out value="${totalquizresults.incorrect}" />
     </div>
 </c:if>
 
-<c:if test="${not empty totalquizresults.totalQuestions}">
-    <div style="color:green;font-weight: bold;">
+<c:if test="${not empty totalquizresults.totalQuestions}">Total Questions Answered:
+    <div style="color:darkorange;font-weight: bold;">
         <c:out value="${totalquizresults.totalQuestions}" />
     </div>
 </c:if>
 
-<c:if test="${not empty totalquizresults.name}">
-    <div style="color:green;font-weight: bold;">
+
+<c:if test="${not empty totalquizresults.name}">Name:
+    <div style="color:darkorange;font-weight: bold;">
         <c:out value="${totalquizresults.name}" />
     </div>
 </c:if>
 
-<c:if test="${not empty totalquizresults.email}">
-    <div style="color:green;font-weight: bold;">
+<c:if test="${not empty totalquizresults.email}">Email:
+    <div style="color:darkorange;font-weight: bold;">
         <c:out value="${totalquizresults.email}" />
     </div>
 </c:if>
+    </br>
 
 
-<br><br>
-<br><br>
 </table>
+
+<br><br>
 <a href="/">Quiz Me Again</a> | <a href="/admin/">admin</a>
 
 
