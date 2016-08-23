@@ -1,0 +1,13 @@
+quizEngine/controllers/SimpleErrorController.class
+quizEngine/entities/QuizQuestion$QuizSize.class
+quizEngine/entities/QuizQuestion$Category.class
+quizEngine/entities/QuizQuestionDAO.class
+quizEngine/entities/QuizQuestion.class
+quizEngine/controllers/DefaultController.class
+quizEngine/Application.class
+quizEngine/controllers/QuizController.class
+quizEngine/entities/QuizQuestion$Difficulty.class
+quizEngine/WebSecurityConfig.class
+quizEngine/controllers/AdminController.class
+quizEngine/entities/QuizQuestion$QuizType.class
+quizEngine/entities/QuizQuestion$QuestionType.class
