@@ -79,9 +79,9 @@ public class AdminController {
         if (!QuizQuestionsFile.isEmpty()) {
             try {
                 String pathString= "/Users/Letricia/DB_Quiz_Engine-DO_NOT_DELETE/";
-                Files.write(Paths.get(pathString+QuizQuestionsFile.getOriginalFilename()),QuizQuestionsFile.getBytes());
+                Files.write(Paths.get(QuizQuestionsFile.getOriginalFilename()),QuizQuestionsFile.getBytes());
                 System.out.println("-------- File Upload Successful");
-                addUploadToDatabase(pathString+QuizQuestionsFile.getOriginalFilename());
+                addUploadToDatabase(QuizQuestionsFile.getOriginalFilename());
             } catch (IOException | RuntimeException e) {    // this is like an && statement catching 2 types of exceptions
                 e.printStackTrace();
             }
