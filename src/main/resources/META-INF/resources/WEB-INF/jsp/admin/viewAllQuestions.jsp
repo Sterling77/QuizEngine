@@ -22,11 +22,11 @@
         <th> | </th>
         <th> Answer </th>
     </tr>
-    <c:forEach var="quizQuestion" items="${quizQuestions}">
+    <c:forEach var="quizQuestion" items="${quizQuestions}"> <%--this is an enhanced forloop. Loops thru as long as there are more questions!!--%>
         <tr>
             <td><a href="/admin/viewQuestion?id=${quizQuestion.id}"><c:out value="${quizQuestion.id}" /></a></td>
             <th> | </th>
-            <td><c:out value="${quizQuestion.category}" /></td>
+            <td><c:out value="${quizQuestion.category}" /></td>     <%--this is called JSTL scripting language to modify HTML.>>> c:out--%>
             <th> | </th>
             <td><c:out value="${quizQuestion.questionType}" /></td>
             <th> | </th>
@@ -49,13 +49,21 @@
                     </c:forEach>
                 </c:if>
             </td>
+
+            <td><a href="/admin/deleteQuestion?id=${quizQuestion.id}">DELETE:<c:out value="${quizQuestion.id}" /></a></td>
+
         </tr>
     </c:forEach>
 </table>
 <br><br>
+
 <a href="/">HOME</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="/admin/addQuestion">Add New Question</a>
+||
+<a href="/restData/getAllQuestions">Bulk Download Questions</a>
+||
+<a href="/admin/uploadQuestions">Bulk Upload Questions</a>
 </body>
 </body>
 </html>

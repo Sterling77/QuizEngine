@@ -152,21 +152,21 @@ public class QuizController {
             if (multiAnswer != null && multiAnswer.equalsIgnoreCase("yes")) {
                 model.addAttribute("correct", "GREAT JOB!");
                 int c = quiz.getCorrect();
-                quiz.setCorrect(c++);
+                quiz.setCorrect(c+1);
             } else {
                 model.addAttribute("incorrect", "SORRY Wrong Answer");
                 int w = quiz.getIncorrect();
-                quiz.setIncorrect(w++);
+                quiz.setIncorrect(w+1);
             }
         } else if (quizQuestion.getQuestionType().equals(QuizQuestion.QuestionType.TRUE_FALSE)) {
             if (trueFalseAnswer != null && quizQuestion.isTrueOrFalse() == Boolean.valueOf(trueFalseAnswer)) {
                 model.addAttribute("correct", "GREAT JOB!");
                 int c = quiz.getCorrect();
-                quiz.setCorrect(c++);
+                quiz.setCorrect(c+1);
             } else {
                 model.addAttribute("incorrect", "SORRY Wrong Answer");
                 int w = quiz.getIncorrect();
-                quiz.setIncorrect(w++);
+                quiz.setIncorrect(w+1);
             }
         }
         return "quiz/answer";

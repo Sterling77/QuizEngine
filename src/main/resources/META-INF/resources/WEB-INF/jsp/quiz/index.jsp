@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>QUIZ ENGINE</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"  />
+    <link href="/css/mainCSS.css" rel="stylesheet" type="text/css" />
 </head>
 <body bgcolor="#33B2FF"></body>
 <body>

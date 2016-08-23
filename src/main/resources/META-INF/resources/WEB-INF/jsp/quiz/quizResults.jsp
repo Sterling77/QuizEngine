@@ -4,6 +4,8 @@
 
 <head>
     <title>QUIZ RESULTS</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"  />
+    <link href="/css/quizResults.css" rel="stylesheet" type="text/css" />
 </head>
 
 <%--<body--%>
@@ -16,6 +18,18 @@ bgcolor="#00FFFF">
 
 <h1>QUIZ RESULTS</h1>
 <table>
+
+    <c:if test="${not empty totalquizresults.name}">Name:
+        <div style="color:darkorange;font-weight: bold;">
+            <c:out value="${totalquizresults.name}" />
+        </div>
+    </c:if>
+
+    <c:if test="${not empty totalquizresults.email}">Email:
+        <div style="color:darkorange;font-weight: bold;">
+            <c:out value="${totalquizresults.email}" />
+        </div>
+    </c:if>
 
 <c:if test="${not empty totalquizresults.correct}">Correct Quiz Results:
     <div style="color:darkorange;font-weight: bold;">
@@ -35,18 +49,19 @@ bgcolor="#00FFFF">
     </div>
 </c:if>
 
+<c:if test="${not empty totalquizresults.getAverageNumberCorrect()}">% of Average Correct Answers:
+   <div style="color:darkorange;font-weight: bold;">
+        <c:out value="${totalquizresults.averageNumberCorrect}" />
+   </div>
+</c:if>
 
-<c:if test="${not empty totalquizresults.name}">Name:
+
+<c:if test="${not empty totalquizresults.getAverageNumberIncorrect()}">% of Average Incorrect Answers:
     <div style="color:darkorange;font-weight: bold;">
-        <c:out value="${totalquizresults.name}" />
+        <c:out value="${totalquizresults.averageNumberIncorrect}" />
     </div>
 </c:if>
 
-<c:if test="${not empty totalquizresults.email}">Email:
-    <div style="color:darkorange;font-weight: bold;">
-        <c:out value="${totalquizresults.email}" />
-    </div>
-</c:if>
     </br>
 
 
@@ -59,4 +74,3 @@ bgcolor="#00FFFF">
 
 </body>
 </html>
-
